@@ -2,22 +2,35 @@
 
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
+ */
 class Product
 {
     /**
-     * @var string
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    protected $title;
+    private $id;
 
     /**
-     * @var int
+     * @ORM\Column(type="string", length=255)
      */
-    protected $price;
+    private $title;
 
     /**
-     * @var string
+     * @ORM\Column(type="integer")
      */
-    protected $brand;
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $brand;
 
     /**
      * @param string $title
@@ -31,12 +44,44 @@ class Product
         $this->brand = $brand;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    /**
-     * @return string
-     */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(string $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
     }
 }
