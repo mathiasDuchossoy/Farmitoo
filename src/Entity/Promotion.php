@@ -1,25 +1,36 @@
 <?php
 
-
 namespace App\Entity;
 
+use App\Repository\PromotionRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=PromotionRepository::class)
+ */
 class Promotion
 {
     /**
-     * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    protected $minAmount;
+    private $id;
 
     /**
-     * @var int
+     * @ORM\Column(type="integer")
      */
-    protected $reduction;
+    private $minAmount;
 
     /**
-     * @var bool
+     * @ORM\Column(type="integer")
      */
-    protected $freeDelivery;
+    private $reduction;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $freeDelivery;
 
     /**
      * @param int $minAmount
@@ -31,5 +42,46 @@ class Promotion
         $this->minAmount = $minAmount;
         $this->reduction = $reduction;
         $this->freeDelivery = $freeDelivery;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMinAmount(): ?int
+    {
+        return $this->minAmount;
+    }
+
+    public function setMinAmount(int $minAmount): self
+    {
+        $this->minAmount = $minAmount;
+
+        return $this;
+    }
+
+    public function getReduction(): ?int
+    {
+        return $this->reduction;
+    }
+
+    public function setReduction(int $reduction): self
+    {
+        $this->reduction = $reduction;
+
+        return $this;
+    }
+
+    public function getFreeDelivery(): ?bool
+    {
+        return $this->freeDelivery;
+    }
+
+    public function setFreeDelivery(bool $freeDelivery): self
+    {
+        $this->freeDelivery = $freeDelivery;
+
+        return $this;
     }
 }
