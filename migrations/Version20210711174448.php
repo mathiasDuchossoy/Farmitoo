@@ -21,7 +21,6 @@ final class Version20210711174448 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE brand (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title VARCHAR(255) NOT NULL)');
-        $this->addSql('DROP TABLE "order"');
         $this->addSql('DROP INDEX IDX_1F1B251E8D9F6D38');
         $this->addSql('DROP INDEX UNIQ_1F1B251E4584665A');
         $this->addSql('CREATE TEMPORARY TABLE __temp__item AS SELECT id, product_id, order_id, quantity FROM item');
@@ -42,7 +41,6 @@ final class Version20210711174448 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE "order" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)');
         $this->addSql('DROP TABLE brand');
         $this->addSql('DROP INDEX UNIQ_1F1B251E4584665A');
         $this->addSql('DROP INDEX IDX_1F1B251E8D9F6D38');
