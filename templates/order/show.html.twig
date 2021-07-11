@@ -8,9 +8,19 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ order.id }}</td>
+                <th>Title</th>
+                <th>Unit price</th>
+                <th>Brand</th>
+                <th>Quantity</th>
             </tr>
+            {% for item in order.items %}
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.product.brand }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
