@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
+use App\Service\PromotionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +52,11 @@ class OrderController extends AbstractController
     /**
      * @Route("/{id}", name="order_show", methods={"GET"})
      */
-    public function show(Order $order): Response
+    public function show(Order $order, PromotionService $promotionService): Response
     {
         return $this->render('order/show.html.twig', [
             'order' => $order,
+            'promotion' => $promotionService->getOneByOrder($order),
         ]);
     }
 

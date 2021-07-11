@@ -3,7 +3,8 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
-    <h1>Order</h1>
+    <h1>Cart</h1>
+    <h2>Order</h2>
 
     <table class="table">
         <thead>
@@ -29,11 +30,30 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>subtotal excluding taxes</th>
+                <th>Subtotal excluding taxes</th>
                 <td>{{ order.subtotalExcludingTaxes }}</td>
             </tr>
         </tbody>
     </table>
+
+    {% if promotion is not null %}
+        <h2>Promotion</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>reduction</th>
+                    <th>free delivery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ promotion.reduction }}</td>
+                    <td>{{ promotion.freeDelivery ? "yes" : "No" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
 
     <a href="{{ path('order_index') }}">back to list</a>
 

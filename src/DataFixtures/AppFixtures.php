@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Item;
 use App\Entity\Order;
 use App\Entity\Product;
+use App\Entity\Promotion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -29,6 +30,9 @@ class AppFixtures extends Fixture
             $order->addItem($item);
             $manager->persist($order);
         }
+
+        $promotion = new Promotion(50, 10, true);
+        $manager->persist($promotion);
 
         $manager->flush();
     }
