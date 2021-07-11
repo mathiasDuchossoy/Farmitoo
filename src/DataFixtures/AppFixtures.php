@@ -21,9 +21,11 @@ class AppFixtures extends Fixture
 
         $brand1 = new Brand();
         $brand1->setTitle('Farmitoo');
+        $manager->persist($brand1);
 
         $brand2 = new Brand();
         $brand2->setTitle('Gallagher ');
+        $manager->persist($brand2);
 
         $brands = [$brand1, $brand2];
 
