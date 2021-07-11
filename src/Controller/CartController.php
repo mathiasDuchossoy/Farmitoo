@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
-use App\Form\OrderType;
 use App\Repository\OrderRepository;
 use App\Service\PromotionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,6 +19,10 @@ class CartController extends AbstractController
     public function index(OrderRepository $orderRepository, PromotionService $promotionService): Response
     {
         $order = $orderRepository->findOneBy([]);
+
+        if (!$order) {
+            throw $this->createNotFoundException('No order found');
+        }
 
         return $this->render('cart/show.html.twig', [
             'order' => $order,
