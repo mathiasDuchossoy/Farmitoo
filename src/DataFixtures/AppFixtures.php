@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
     /**
      * @throws \Exception
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $order = new Order();
 
@@ -21,13 +21,12 @@ class AppFixtures extends Fixture
             $product = new Product("product$i", random_int(1, 100), "brand$i");
             $manager->persist($product);
 
-
             $item = new Item();
             $item->setQuantity(random_int(1, 10));
             $item->setProduct($product);
+            $manager->persist($item);
 
             $order->addItem($item);
-
             $manager->persist($order);
         }
 
