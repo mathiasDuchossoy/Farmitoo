@@ -28,16 +28,12 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $brand;
 
-    /**
-     * @param string $title
-     * @param int $price
-     * @param string $brand
-     */
-    public function __construct(string $title, int $price, string $brand)
+    public function __construct(string $title, int $price, Brand $brand)
     {
         $this->title = $title;
         $this->price = $price;
@@ -73,12 +69,12 @@ class Product
         return $this;
     }
 
-    public function getBrand(): ?string
+    public function getBrand(): ?Brand
     {
         return $this->brand;
     }
 
-    public function setBrand(string $brand): self
+    public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
 
