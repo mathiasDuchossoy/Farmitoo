@@ -35,14 +35,6 @@ class Order
         return $this->id;
     }
 
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItems(): Collection
-    {
-        return $this->items;
-    }
-
     public function addItem(Item $item): self
     {
         if (!$this->items->contains($item)) {
@@ -63,5 +55,24 @@ class Order
         }
 
         return $this;
+    }
+
+    public function getSubtotalExcludingTaxes(): int
+    {
+        $subtotalExcludingTaxes = 0;
+
+        foreach ($this->getItems() as $item) {
+            $subtotalExcludingTaxes += $item->getQuantity() * $item->getProduct()->getPrice();
+        }
+
+        return $subtotalExcludingTaxes;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 }

@@ -6,13 +6,15 @@
     <h1>Order</h1>
 
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
                 <th>Title</th>
                 <th>Unit price</th>
                 <th>Brand</th>
                 <th>Quantity</th>
             </tr>
+        </thead>
+        <tbody>
             {% for item in order.items %}
                 <tr>
                     <td>{{ item.product.title }}</td>
@@ -21,6 +23,15 @@
                     <td>{{ item.quantity }}</td>
                 </tr>
             {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>subtotal excluding taxes</th>
+                <td>{{ order.subtotalExcludingTaxes }}</td>
+            </tr>
         </tbody>
     </table>
 
