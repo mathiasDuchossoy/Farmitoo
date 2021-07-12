@@ -69,7 +69,7 @@ class Product
         return $this;
     }
 
-    public function getBrand(): ?Brand
+    public function getBrand(): Brand
     {
         return $this->brand;
     }

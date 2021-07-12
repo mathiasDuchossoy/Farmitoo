@@ -29,6 +29,12 @@ class Brand
      */
     private $products;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ShippingFees::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shippingFees;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -77,6 +83,18 @@ class Brand
                 $product->setBrand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getShippingFees(): ShippingFees
+    {
+        return $this->shippingFees;
+    }
+
+    public function setShippingFees(ShippingFees $shippingFees): self
+    {
+        $this->shippingFees = $shippingFees;
 
         return $this;
     }

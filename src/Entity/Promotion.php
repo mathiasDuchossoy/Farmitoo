@@ -32,11 +32,6 @@ class Promotion
      */
     private $freeDelivery;
 
-    /**
-     * @param int $minAmount
-     * @param int $reduction
-     * @param bool $freeDelivery
-     */
     public function __construct(int $minAmount, int $reduction, bool $freeDelivery)
     {
         $this->minAmount = $minAmount;
