@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Brand;
+use App\Entity\FarmitooShippingFees;
+use App\Entity\GallagherShippingFees;
 use App\Entity\Item;
 use App\Entity\Order;
 use App\Entity\Product;
@@ -19,12 +21,21 @@ class AppFixtures extends Fixture
     {
         $order = new Order();
 
+        $shippingFees = new FarmitooShippingFees();
+        $shippingFees->setPrice(20);
+        $shippingFees->setSlice(3);
+
         $brand1 = new Brand();
         $brand1->setTitle('Farmitoo');
+        $brand1->setShippingFees($shippingFees);
         $manager->persist($brand1);
 
+        $shippingFees = new GallagherShippingFees();
+        $shippingFees->setPrice(15);
+
         $brand2 = new Brand();
-        $brand2->setTitle('Gallagher ');
+        $brand2->setTitle('Gallagher');
+        $brand2->setShippingFees($shippingFees);
         $manager->persist($brand2);
 
         $brands = [$brand1, $brand2];
@@ -48,13 +59,5 @@ class AppFixtures extends Fixture
         $manager->persist($promotion);
 
         $manager->flush();
-    }
-
-    private function loadProducts(ObjectManager $manager) {
-
-    }
-
-    private function loadItems(ObjectManager $manager) {
-
     }
 }
