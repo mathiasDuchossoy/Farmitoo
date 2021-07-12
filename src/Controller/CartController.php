@@ -26,7 +26,7 @@ class CartController extends AbstractController
         return $this->render('cart/show.html.twig', [
             'order' => $order,
             'promotion' => $promotionService->getOneByOrder($order),
-            '$shippingFees' => $shippingFeesService->calculate($order),
+            'shippingFees' => $shippingFeesService->calculate($order),
         ]);
     }
 }
