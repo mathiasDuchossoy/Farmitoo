@@ -66,4 +66,15 @@
         </tbody>
     </table>
 
+    <h2>Total HT</h2>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Total HT</th>
+            <td>{{ order.subtotalExcludingTaxes + shippingFees - promotion.reduction }}</td>
+        </tr>
+        </tbody>
+    </table>
+
 {% endblock %}
