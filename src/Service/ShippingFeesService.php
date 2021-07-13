@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Calculator\ShippingFeesCalculator;
-use App\Calculator\ShippingFeesCalculatorInterface;
 use App\Entity\Brand;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +32,7 @@ class ShippingFeesService
         $this->itemService = $itemService;
     }
 
-    public function calculate(Order $order): int
+    public function calculateForOrder(Order $order): int
     {
         $brands = $this->em->getRepository(Brand::class)->findAll();
 

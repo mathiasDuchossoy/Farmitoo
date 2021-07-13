@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\OrderService;
 use App\Service\PromotionService;
 use App\Service\ShippingFeesService;
+use App\Service\VATService;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,8 @@ class CartController extends AbstractController
     public function show(
         OrderService $orderService,
         PromotionService $promotionService,
-        ShippingFeesService $shippingFeesService
+        ShippingFeesService $shippingFeesService,
+        VATService $VATService
     ): Response
     {
         $order = $orderService->getOneOrFail();
@@ -30,7 +32,8 @@ class CartController extends AbstractController
         return $this->render('cart/show.html.twig', [
             'order' => $order,
             'promotion' => $promotionService->getOneByOrder($order),
-            'shippingFees' => $shippingFeesService->calculate($order),
+            'shippingFees' => $shippingFeesService->calculateForOrder($order),
+            'vats' => $VATService->getForOrder($order),
         ]);
     }
 }
