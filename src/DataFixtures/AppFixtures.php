@@ -9,6 +9,7 @@ use App\Entity\Item;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Promotion;
+use App\Entity\VAT;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -21,6 +22,9 @@ class AppFixtures extends Fixture
     {
         $order = new Order();
 
+        $vat = new VAT();
+        $vat->setRate(20);
+
         $shippingFees = new FarmitooShippingFees();
         $shippingFees->setPrice(20);
         $shippingFees->setSlice(3);
@@ -28,7 +32,11 @@ class AppFixtures extends Fixture
         $brand1 = new Brand();
         $brand1->setTitle('Farmitoo');
         $brand1->setShippingFees($shippingFees);
+        $brand1->addVAT($vat);
         $manager->persist($brand1);
+
+        $vat = new VAT();
+        $vat->setRate(5);
 
         $shippingFees = new GallagherShippingFees();
         $shippingFees->setPrice(15);
@@ -36,6 +44,7 @@ class AppFixtures extends Fixture
         $brand2 = new Brand();
         $brand2->setTitle('Gallagher');
         $brand2->setShippingFees($shippingFees);
+        $brand2->addVAT($vat);
         $manager->persist($brand2);
 
         $brands = [$brand1, $brand2];

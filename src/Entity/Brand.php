@@ -35,9 +35,15 @@ class Brand
      */
     private $shippingFees;
 
+    /**
+     * @ORM\OneToMany(targetEntity=VAT::class, mappedBy="brand", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $VAT;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->VAT = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,5 +103,40 @@ class Brand
         $this->shippingFees = $shippingFees;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|VAT[]
+     */
+    public function getVAT(): Collection
+    {
+        return $this->VAT;
+    }
+
+    public function addVAT(VAT $vAT): self
+    {
+        if (!$this->VAT->contains($vAT)) {
+            $this->VAT[] = $vAT;
+            $vAT->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVAT(VAT $vAT): self
+    {
+        if ($this->VAT->removeElement($vAT)) {
+            // set the owning side to null (unless already changed)
+            if ($vAT->getBrand() === $this) {
+                $vAT->setBrand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
