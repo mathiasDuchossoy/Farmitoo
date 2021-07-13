@@ -19,7 +19,11 @@ class CartController extends AbstractController
      * @Route("/", name="cart_show", methods={"GET"})
      * @throws EntityNotFoundException
      */
-    public function show(OrderService $orderService, PromotionService $promotionService, ShippingFeesService $shippingFeesService): Response
+    public function show(
+        OrderService $orderService,
+        PromotionService $promotionService,
+        ShippingFeesService $shippingFeesService
+    ): Response
     {
         $order = $orderService->getOneOrFail();
 

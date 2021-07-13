@@ -36,7 +36,7 @@ class Brand
     private $shippingFees;
 
     /**
-     * @ORM\OneToMany(targetEntity=VAT::class, mappedBy="brand", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=VAT::class, mappedBy="brand", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $VAT;
 
