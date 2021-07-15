@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Brand;
 use App\Entity\Item;
 use App\Entity\Order;
+use App\Entity\Promotion;
 use Doctrine\Common\Collections\Collection;
 
 class ItemService
@@ -14,5 +15,15 @@ class ItemService
         return $order->getItems()->filter(function (Item $item) use ($brand) {
             return $item->getProduct()->getBrand()->getId() === $brand->getId();
         });
+    }
+
+    /**
+     * @param Collection|Item[] $items
+     */
+    public function applicatePromotion(Collection $items, Promotion $promotion)
+    {
+        foreach ($items as $item) {
+
+        }
     }
 }

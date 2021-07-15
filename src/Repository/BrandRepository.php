@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Brand;
+use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,5 +18,18 @@ class BrandRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Brand::class);
+    }
+
+    public function findByOrder(Order $order)
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b')
+            ->innerJoin('b.products', 'p')
+            ->innerJoin('p.items', 'i')
+            ->innerJoin('i.order', 'o')
+            ->where('o.id = :id')
+            ->setParameter('id', $order->getId())
+            ->getQuery()
+            ->getResult();
     }
 }

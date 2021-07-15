@@ -13,6 +13,10 @@ class VATService
         $vats = new ArrayCollection();
 
         foreach ($order->getItems() as $item) {
+            /**
+             * On pourra le récupérer pour le pays
+             * Pour l'instant, on récupère le premier (correspondant à FR)
+             */
             $vat = $item->getProduct()->getBrand()->getVAT()->first();
 
             if (!$vats->contains($vat)) {

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,11 +35,17 @@ class Product
      */
     private $brand;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Item::class, mappedBy="product", orphanRemoval=true)
+     */
+    private $items;
+
     public function __construct(string $title, int $price, Brand $brand)
     {
         $this->title = $title;
         $this->price = $price;
         $this->brand = $brand;
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,6 +85,36 @@ class Product
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getProduct() === $this) {
+                $item->setProduct(null);
+            }
+        }
 
         return $this;
     }

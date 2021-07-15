@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\VATRepository;
 use App\Service\OrderService;
 use App\Service\PromotionService;
 use App\Service\ShippingFeesService;
@@ -24,7 +25,7 @@ class CartController extends AbstractController
         OrderService $orderService,
         PromotionService $promotionService,
         ShippingFeesService $shippingFeesService,
-        VATService $VATService
+        VATRepository $VATRepository
     ): Response
     {
         $order = $orderService->getOneOrFail();
@@ -33,7 +34,8 @@ class CartController extends AbstractController
             'order' => $order,
             'promotion' => $promotionService->getOneByOrder($order),
             'shippingFees' => $shippingFeesService->calculateForOrder($order),
-            'vats' => $VATService->getForOrder($order),
+            'vats' => $VATRepository->findByOrder($order),
+            'totalInclTax' => $orderService->calculateTotalInclTaxForOrder($order),
         ]);
     }
 }

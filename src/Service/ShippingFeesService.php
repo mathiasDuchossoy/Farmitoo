@@ -3,10 +3,8 @@
 namespace App\Service;
 
 use App\Calculator\ShippingFeesCalculator;
-use App\Entity\Brand;
 use App\Entity\Order;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
+use App\Repository\BrandRepository;
 
 class ShippingFeesService
 {
@@ -16,34 +14,30 @@ class ShippingFeesService
     private $shippingFeesCalculator;
 
     /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    /**
      * @var ItemService
      */
     private $itemService;
 
-    public function __construct(EntityManagerInterface $em, ItemService $itemService, ShippingFeesCalculator $shippingFeesCalculator)
+    /**
+     * @var BrandRepository
+     */
+    private $brandRepository;
+
+    public function __construct(ItemService $itemService, ShippingFeesCalculator $shippingFeesCalculator, BrandRepository $brandRepository)
     {
-        $this->em = $em;
         $this->shippingFeesCalculator = $shippingFeesCalculator;
         $this->itemService = $itemService;
+        $this->brandRepository = $brandRepository;
     }
 
     public function calculateForOrder(Order $order): int
     {
-        $brands = $this->em->getRepository(Brand::class)->findAll();
+        $brands = $this->brandRepository->findByOrder($order);
 
         $shippingFees = 0;
 
         foreach ($brands as $brand) {
             $items = $this->itemService->getByBrandForOrder($brand, $order);
-
-            if ($items->isEmpty()) {
-                continue;
-            }
 
             $shippingFees += $this->shippingFeesCalculator->calculate($items, $brand);
         }
