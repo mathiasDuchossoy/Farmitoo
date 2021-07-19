@@ -39,7 +39,7 @@ class ShippingFeesService
         foreach ($brands as $brand) {
             $items = $this->itemService->getByBrandForOrder($brand, $order);
 
-            $shippingFees += $this->shippingFeesCalculator->calculate($items, $brand);
+            $shippingFees += $this->shippingFeesCalculator->calculate($items, $brand->getShippingFees());
         }
 
         return $shippingFees;

@@ -26,7 +26,7 @@ class PromotionService
             return null;
         }
 
-        if ($promotion->getMinAmount() > $order->getSubtotalExcludingTaxes()) {
+        if ($promotion->getMinAmount() > $order->getSubtotalExclTax()) {
             return null;
         }
 

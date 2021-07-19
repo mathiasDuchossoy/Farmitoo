@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Brand;
 use App\Entity\Item;
 use App\Entity\Order;
-use App\Entity\Promotion;
 use Doctrine\Common\Collections\Collection;
 
 class ItemService
@@ -20,10 +19,14 @@ class ItemService
     /**
      * @param Collection|Item[] $items
      */
-    public function applicatePromotion(Collection $items, Promotion $promotion)
+    public function calculateSubTotalExclTax(Collection $items): float
     {
-        foreach ($items as $item) {
+        $subtotalExcludingTaxes = 0;
 
+        foreach ($items as $item) {
+            $subtotalExcludingTaxes += $item->getQuantity() * $item->getProduct()->getPrice();
         }
+
+        return $subtotalExcludingTaxes;
     }
 }

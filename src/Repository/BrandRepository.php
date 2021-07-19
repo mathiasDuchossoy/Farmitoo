@@ -23,7 +23,6 @@ class BrandRepository extends ServiceEntityRepository
     public function findByOrder(Order $order)
     {
         return $this->createQueryBuilder('b')
-            ->select('b')
             ->innerJoin('b.products', 'p')
             ->innerJoin('p.items', 'i')
             ->innerJoin('i.order', 'o')

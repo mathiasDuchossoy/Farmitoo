@@ -31,7 +31,7 @@
         <tbody>
             <tr>
                 <th>Subtotal excluding taxes</th>
-                <td>{{ order.subtotalExcludingTaxes }}</td>
+                <td>{{ order.subtotalExclTax }}</td>
             </tr>
         </tbody>
     </table>
@@ -55,7 +55,7 @@
         </table>
     {% endif %}
 
-    <h2>Shipping fees</h2>
+    <h2>Shipping fees HT</h2>
 
     <table class="table">
         <tbody>
@@ -72,7 +72,7 @@
         <tbody>
         <tr>
             <th>Total HT</th>
-            <td>{{ order.subtotalExcludingTaxes + shippingFees - promotion.reduction }}</td>
+            <td>{{ order.subtotalExclTax + shippingFees - promotion.reduction }}</td>
         </tr>
         </tbody>
     </table>

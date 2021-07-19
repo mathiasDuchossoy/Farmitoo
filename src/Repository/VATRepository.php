@@ -23,7 +23,6 @@ class VATRepository extends ServiceEntityRepository
     public function findByOrder(Order $order)
     {
         return $this->createQueryBuilder('v')
-            ->select('v')
             ->innerJoin('v.brand', 'b')
             ->innerJoin('b.products', 'p')
             ->innerJoin('p.items', 'i')

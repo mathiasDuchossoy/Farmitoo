@@ -8,6 +8,10 @@ use Doctrine\Common\Collections\Collection;
 
 class VATService
 {
+    /**
+     * J'ai utilisé VATRepository pour les récupérer
+     * mais on peut faire comme cela
+     */
     public function getForOrder(Order $order): Collection
     {
         $vats = new ArrayCollection();

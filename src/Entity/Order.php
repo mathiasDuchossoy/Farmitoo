@@ -57,11 +57,11 @@ class Order
         return $this;
     }
 
-    public function getSubtotalExcludingTaxes(): int
+    public function getSubtotalExclTax(): int
     {
         $subtotalExcludingTaxes = 0;
 
-        foreach ($this->getItems() as $item) {
+        foreach ($this->items as $item) {
             $subtotalExcludingTaxes += $item->getQuantity() * $item->getProduct()->getPrice();
         }
 

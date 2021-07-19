@@ -35,7 +35,7 @@ class CartController extends AbstractController
             'promotion' => $promotionService->getOneByOrder($order),
             'shippingFees' => $shippingFeesService->calculateForOrder($order),
             'vats' => $VATRepository->findByOrder($order),
-            'totalInclTax' => $orderService->calculateTotalInclTaxForOrder($order),
+            'totalInclTax' => $orderService->calculateTotalInclTax($order),
         ]);
     }
 }
