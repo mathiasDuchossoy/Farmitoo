@@ -6,7 +6,6 @@ use App\Repository\VATRepository;
 use App\Service\OrderService;
 use App\Service\PromotionService;
 use App\Service\ShippingFeesService;
-use App\Service\VATService;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
